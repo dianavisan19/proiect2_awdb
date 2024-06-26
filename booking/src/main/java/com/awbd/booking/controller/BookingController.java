@@ -1,36 +1,26 @@
 package com.awbd.booking.controller;
 
 import com.awbd.booking.model.Booking;
-import com.awbd.booking.model.Notification;
-import com.awbd.booking.services.NotificationServiceProxy;
 import com.awbd.booking.services.BookingService;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.awbd.booking.services.NotificationServiceProxy;
+import com.awbd.notification.model.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.Link;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
+
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private NotificationServiceProxy notificationService;
 
     @GetMapping
     public List<Booking> getAllBookings() {
@@ -45,7 +35,19 @@ public class BookingController {
     @PostMapping
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         Booking createdBooking = bookingService.save(booking);
+
+        // send notification after booking is created
+        com.awbd.booking.model.Notification notification = new com.awbd.booking.model.Notification("New booking created: " + createdBooking.getId());
+        ResponseEntity<String> response = notificationService.sendNotification(notification);
+
+        System.out.println("Notification service response: " + response.getBody());
+
         return ResponseEntity.ok().body(createdBooking);
+    }
+
+    @GetMapping("/notifications")
+    public List<com.awbd.booking.model.Notification> getAllNotifications() {
+        return notificationService.getAllNotifications();
     }
 
     @PutMapping("/{id}")
