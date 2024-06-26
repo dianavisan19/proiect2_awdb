@@ -1,11 +1,11 @@
 package com.awbd.booking.services;
 
-import com.awbd.booking.model.Discount;
+import com.awbd.booking.model.Notification;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@FeignClient(value = "discount")
-public interface DiscountServiceProxy {
-    @GetMapping("/discount")
-    Discount findDiscount();
+@FeignClient(value = "notification")
+public interface NotificationServiceProxy {
+    @GetMapping("/notification")
+    Notification findNotification();
 }

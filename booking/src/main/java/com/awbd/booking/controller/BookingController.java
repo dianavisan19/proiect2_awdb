@@ -1,8 +1,8 @@
 package com.awbd.booking.controller;
 
 import com.awbd.booking.model.Booking;
-import com.awbd.booking.model.Discount;
-import com.awbd.booking.services.DiscountServiceProxy;
+import com.awbd.booking.model.Notification;
+import com.awbd.booking.services.NotificationServiceProxy;
 import com.awbd.booking.services.BookingService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.swagger.v3.oas.annotations.Operation;

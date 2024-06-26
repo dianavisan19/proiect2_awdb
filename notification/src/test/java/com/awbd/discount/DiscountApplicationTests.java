@@ -1,10 +1,10 @@
-package com.awbd.discount;
+package com.awbd.notification;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DiscountApplicationTests {
+class NotificationApplicationTests {
 
 	@Test
 	void contextLoads() {
