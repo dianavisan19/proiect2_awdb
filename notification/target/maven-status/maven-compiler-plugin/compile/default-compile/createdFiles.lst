@@ -1,0 +1,4 @@
+com\awbd\discount\DiscountApplication.class
+com\awbd\discount\config\PropertiesConfig.class
+com\awbd\discount\controllers\Controller.class
+com\awbd\discount\model\Discount.class
