@@ -1,4 +1,4 @@
-package com.awbd.discount.config;
+package com.awbd.notification.config;
 
 import lombok.Getter;
 import lombok.Setter;

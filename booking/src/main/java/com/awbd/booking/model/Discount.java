@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @AllArgsConstructor
-public class Discount {
+public class Notification {
     private int month;
     private int year;
     private String versionId;

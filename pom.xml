@@ -9,7 +9,7 @@
 
     <modules>
         <module>config-server</module>
-        <module>discount</module>
+        <module>notification</module>
         <module>eureka-server</module>
         <module>booking</module>
     </modules>
