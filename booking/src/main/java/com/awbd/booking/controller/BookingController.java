@@ -36,8 +36,8 @@ public class BookingController {
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         Booking createdBooking = bookingService.save(booking);
 
-        // Send notification after booking is created
-        Notification notification = new Notification("New booking created: " + createdBooking.getId());
+        // send notification after booking is created
+        com.awbd.booking.model.Notification notification = new com.awbd.booking.model.Notification("New booking created: " + createdBooking.getId());
         ResponseEntity<String> response = notificationService.sendNotification(notification);
 
         System.out.println("Notification service response: " + response.getBody());
@@ -46,7 +46,7 @@ public class BookingController {
     }
 
     @GetMapping("/notifications")
-    public List<Notification> getAllNotifications() {
+    public List<com.awbd.booking.model.Notification> getAllNotifications() {
         return notificationService.getAllNotifications();
     }
 

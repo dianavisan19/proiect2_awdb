@@ -2,13 +2,13 @@ package com.awbd.notification.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Notification {
-    private int month;
-    private int year;
-    private String versionId;
+    private String message;
 }
