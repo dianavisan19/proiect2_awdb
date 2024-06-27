@@ -4,6 +4,7 @@ import com.awbd.booking.model.Booking;
 import com.awbd.booking.services.BookingService;
 import com.awbd.booking.services.NotificationServiceProxy;
 import com.awbd.notification.model.Notification;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,7 @@ public class BookingController {
     }
 
     @PostMapping
+    @CircuitBreaker(name = "notification", fallbackMethod = "notificationFallback")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         Booking createdBooking = bookingService.save(booking);
 
@@ -59,5 +61,10 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public void deleteBooking(@PathVariable Long id) {
         bookingService.delete(id);
+    }
+
+    public ResponseEntity<Booking> notificationFallback(Booking booking, Throwable t) {
+        System.out.println("Notification service is down, fallback method called");
+        return ResponseEntity.ok().body(booking);
     }
 }
